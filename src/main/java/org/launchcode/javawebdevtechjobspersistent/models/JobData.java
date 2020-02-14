@@ -1,6 +1,7 @@
 package org.launchcode.javawebdevtechjobspersistent.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 // This is a change made in sandbox.
 
@@ -23,7 +24,7 @@ public class JobData {
      */
     public static ArrayList<Job> findByColumnAndValue(String column, String value, Iterable<Job> allJobs) {
 
-        ArrayList<Job> results = new ArrayList<>();
+        ArrayList<Job> results = new ArrayList<>();///loop thru skill array!!!!! UNFINISHED!!!
 
         if (value.toLowerCase().equals("all")){
             return (ArrayList<Job>) allJobs;
@@ -33,15 +34,27 @@ public class JobData {
             results = findByValue(value, allJobs);
             return results;
         }
-        for (Job job : allJobs) {
 
-            String aValue = getFieldValue(job, column);
+        if (column.equals("employer")) {
+            for (Job job : allJobs) {
+                String aValue = getFieldValue(job, "employer");
 
-            if (aValue != null && aValue.toLowerCase().contains(value.toLowerCase())) {
-                results.add(job);
+                if (aValue != null && aValue.toLowerCase().contains(value.toLowerCase())) {
+                    results.add(job); }
+            }
+
+        } else {
+            for (Job job : allJobs) {
+                List<Skill> aSkillList = job.getSkills();
+
+                for (Skill aSkill : aSkillList) {
+                    String aValue = aSkill.toString();
+
+                    if (aValue != null && aValue.toLowerCase().contains(value.toLowerCase())) {
+                        results.add(job); }
+                }
             }
         }
-
         return results;
     }
 
@@ -52,7 +65,7 @@ public class JobData {
         } else if (fieldName.equals("employer")){
             theValue = job.getEmployer().toString();
         } else {
-            theValue = job.toString();
+            theValue = job.getSkills().toString();
         }
 
         return theValue;
@@ -74,9 +87,9 @@ public class JobData {
 
             if (job.getName().toLowerCase().contains(value.toLowerCase())) {
                 results.add(job);
-            } else if (job.getEmployer().toLowerCase().contains(value.toLowerCase())) {
+            } else if (job.getEmployer().toString().toLowerCase().contains(value.toLowerCase())) {
                 results.add(job);
-            } else if (job.getSkills().contains(value.toLowerCase())) {
+            } else if (job.getSkills().toString().contains(value.toLowerCase())) {
                 results.add(job);
             } else if (job.toString().toLowerCase().contains(value.toLowerCase())) {
                 results.add(job);
