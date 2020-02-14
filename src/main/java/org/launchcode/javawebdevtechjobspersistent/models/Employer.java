@@ -9,15 +9,19 @@ import java.util.List;
 
 @Entity
 public class Employer extends AbstractEntity {
-    public Employer () {}
 
     @NotBlank(message = "Location is required")
     @Size(min = 2, max = 99, message = "Location name must be between 2 and 99 characters")
     private String location;
 
     @OneToMany
-    @JoinColumn
-    private final List<Job> jobs = new ArrayList<>();
+    @JoinColumn(name = "employer_id")
+    private List<Job> jobs = new ArrayList<>();
+
+    public Employer (String location){
+        super();
+        this.location = location;
+    }
 
     //getters and setters
 
@@ -33,9 +37,8 @@ public class Employer extends AbstractEntity {
         this.location = location;
     }
 
-    //public Employer (String location){
-    //        this.location = location;
-    //    }//is this constructor necessary?
+    public Employer() {
     }
+}
 
 

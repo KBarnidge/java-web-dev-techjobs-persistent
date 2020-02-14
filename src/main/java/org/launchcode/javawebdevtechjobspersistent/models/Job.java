@@ -7,14 +7,11 @@ import java.util.List;
 
 @Entity
 public class Job extends AbstractEntity{
-    public Job() {}
 
     @ManyToOne
-    @NotNull//(message = "Employer name is required.")
     private Employer employer;
 
     @ManyToMany
-    @NotNull//(message = "Skill type is required.")
     private List<Skill> skills = new ArrayList<>();
 
     public Job(Employer anEmployer, List<Skill> someSkills) {
@@ -23,6 +20,7 @@ public class Job extends AbstractEntity{
         this.skills = someSkills;
     }
 
+    public Job() {}
     // Getters and setters.
 
     public Employer getEmployer() {

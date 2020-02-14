@@ -8,14 +8,14 @@
 
 <div class="container body-content">
     <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
-    <h2 class = "centered">View Jobs By Category</h2>
+    <h2>View Jobs By Category:</h2>
 </div>
 
-<table class="centeredTable">
+<table class="listTable">
     <tr>
-        <th>All</th>
-        <th>Employer</th>
-        <th>Skill</th>
+        <th><a th:href="@{/}">All</a></th>
+        <th><a th:href="@{/employers}">Employer</a></th>
+        <th><a th:href="@{/skills}">Skill</a></th>
     </tr>
 
     <tr>
